@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <div id="app">
+            <span>Message: {{ msg }}</span>
+            <br>
+            <span v-once>这个将不会改变：{{ msg }}</span>
+
+            <p>Using mustaches: {{ rawHtml }}</p>
+            <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+
+            <div v-bind:id="dynamicId">123</div>
+            <button v-bind:disabled="isButtonDisabled">Button</button>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    msg: 'this is msg',
+                    rawHtml: '<span style="color:red">This should be red.</span>',
+                    dynamicId: 123,
+                    isButtonDisabled: true
+                }
+            });
+        </script>
+    </body>
+
+</html>
