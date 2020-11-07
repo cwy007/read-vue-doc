@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var myMixin = {
+            created: function () {
+                this.hello()
+            },
+            methods: {
+                hello: function () {
+                    console.log('hello from mixin!')
+                }
+            }
+        }
+
+        var Component = Vue.extend({
+            mixins: [myMixin]
+        });
+
+        var component = new Component();
+    </script>
+
+    <script>
+        var mixin = {
+            data: function () {
+                return {
+                    message: 'hello',
+                    foo: 'abc'
+                }
+            }
+        }
+
+        new Vue({
+            mixins: [mixin],
+            data: function () {
+                return {
+                    message: 'goodbye',
+                    bar: 'def'
+                }
+            },
+            created: function () {
+                console.log(this.$data)
+            }
+        });
+    </script>
+
+    <script>
+        var mixin = {
+            created: function () {
+                console.log('混入对象的钩子被调用')
+            }
+        }
+
+        new Vue({
+            mixins: [mixin],
+            created: function () {
+                console.log('组件钩子被调用')
+            }
+        });
+    </script>
+
+    <script>
+        var mixin = {
+            methods: {
+                foo: function () {
+                    console.log('foo')
+                },
+                conflicting: function () {
+                    console.log('from mixin')
+                }
+            }
+        }
+
+        var vm = new Vue({
+            mixins: [mixin],
+            methods: {
+                bar: function () {
+                    console.log('bar')
+                },
+                conflicting: function () {
+                    console.log('from self')
+                }
+            }
+        });
+
+        vm.foo();
+        vm.bar();
+        vm.conflicting();
+    </script>
+</body>
+</html>
